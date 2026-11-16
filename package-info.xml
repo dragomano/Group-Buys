@@ -1,27 +1,24 @@
 <?xml version="1.0"?>
 <!DOCTYPE package-info SYSTEM "http://www.simplemachines.org/xml/package-info">
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
-	<id>Bugo:Clubbing</id>
-	<name>Clubbing</name>
-	<version>0.4</version>
+	<id>Bugo:GroupBuys</id>
+	<name>Group Buys</name>
+	<version>0.5</version>
 	<type>modification</type>
 
-	<install for="2.0 - 2.0.99">
-		<readme parsebbc="true" lang="russian-utf8">readme/russian-utf8.txt</readme>
-		<readme parsebbc="true" lang="russian">readme/russian.txt</readme>
-		<readme parsebbc="true" lang="english">readme/english.txt</readme>
+	<install for="2.1.*">
 		<require-dir name="Sources" destination="$boarddir" />
 		<require-dir name="Themes" destination="$boarddir" />
-		<database>install.php</database>
-		<code>hooks.php</code>
+		<hook hook="integrate_pre_load" function="GroupBuys::hooks#" file="$sourcedir/Class-GroupBuys.php" />
+		<database>database.php</database>
 	</install>
 
-	<uninstall for="2.0 - 2.0.99">
-		<code>hooks.php</code>
-		<remove-file name="$sourcedir/Class-Clubbing.php" />
-		<remove-file name="$themedir/Clubbing.template.php" />
-		<remove-file name="$themedir/css/clubbing.css" />
-		<remove-dir name="$languagedir/Clubbing" />
+	<uninstall for="2.1.*">
+		<hook hook="integrate_pre_load" function="GroupBuys::hooks#" file="$sourcedir/Class-GroupBuys.php" reverse="true" />
+		<remove-file name="$sourcedir/Class-GroupBuys.php" />
+		<remove-file name="$themedir/GroupBuys.template.php" />
+		<remove-file name="$themedir/css/group_buys.css" />
+		<remove-dir name="$languagedir/GroupBuys" />
 		<redirect url="?action=admin;area=packages;sa=browse" timeout="1000" />
 	</uninstall>
 

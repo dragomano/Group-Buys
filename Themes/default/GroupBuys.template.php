@@ -1,36 +1,22 @@
 <?php
 
-/**
- * Clubbing.template.php
- *
- * @package Clubbing
- * @link https://dragomano.ru/mods/clubbing
- * @author Bugo <bugo@dragomano.ru>
- * @copyright 2018-2019 Bugo
- * @license https://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA
- *
- * @version 0.3.1
- */
-
-function template_display_above()
-{
-}
+function template_display_above() {}
 
 function template_display_below()
 {
 	global $context, $txt, $user_info, $scripturl;
 
-	$currency = empty($context['clubbing']['currency']) ? 'RUB' : $context['clubbing']['currency'];
+	$currency = empty($context['group_buy']['currency']) ? 'RUB' : $context['group_buy']['currency'];
 
 	echo '
-	<div class="modal" id="clubbing" style="display:none">
+	<div class="modal" id="group_buy" style="display:none">
 		<div class="modal-content">
-			<h3>' . (empty($context['clubbing']['id']) ? $txt['cb_clubbing_creating'] : $txt['cb_clubbing_editing']) . '</h3>
-			<form name="clubbing_form" method="post" action="javascript:void(null);">
+			<h3>' . (empty($context['group_buy']['id']) ? $txt['gb_group_buy_creating'] : $txt['gb_group_buy_editing']) . '</h3>
+			<form name="group_buy_form" method="post" action="javascript:void(null);">
 				<input type="hidden" name="topic" value="' . $context['current_topic'] . '" />
 				<input type="hidden" name="user" value="' . $user_info['id'] . '" />
 				<div>
-					<input type="number" name="price" min="0" step="0.01" ' . (!empty($context['clubbing']['price']) ? 'value="' . $context['clubbing']['price'] . '" ' : '') . 'placeholder="' . $txt['cb_enter_price'] . '" required />
+					<input type="number" name="price" min="0" step="0.01" ' . (! empty($context['group_buy']['price']) ? 'value="' . $context['group_buy']['price'] . '" ' : '') . 'placeholder="' . $txt['gb_enter_price'] . '" required />
 					<select name="currency">
 						<option' . ($currency == 'RUB' ? ' selected="selected"' : '') . '>RUB</option>
 						<option' . ($currency == 'UAH' ? ' selected="selected"' : '') . '>UAH</option>
@@ -39,7 +25,7 @@ function template_display_below()
 					</select>
 				</div>
 				<div>
-					<textarea name="requisites" placeholder="' . $txt['cb_enter_requisites'] . '" required>' . (!empty($context['clubbing']['requisites']) ? $context['clubbing']['requisites'] : '') . '</textarea>
+					<textarea name="requisites" placeholder="' . $txt['gb_enter_requisites'] . '" required>' . (! empty($context['group_buy']['requisites']) ? $context['group_buy']['requisites'] : '') . '</textarea>
 				</div>
 				<div class="centertext">
 					<button type="submit" name="submit" class="button_submit">' . $txt['post'] . '</button>
@@ -47,20 +33,20 @@ function template_display_below()
 			</form>
 		</div>
 	</div>
-	<script type="text/javascript">
+	<script>
 		jQuery(document).ready(function($) {
-			$(".button_strip_' . (empty($context['clubbing']['id']) ? 'add' : 'edit') . '_clubbing").attr("rel", "modal:open");
-			$("form[name=clubbing_form]").on("submit", function() {
+			$(".button_strip_' . (empty($context['group_buy']['id']) ? 'add' : 'edit') . '_group_buy").attr("rel", "modal:open");
+			$("form[name=group_buy_form]").on("submit", function() {
 				msg = $(this).serialize();
 				$.ajax({
 					type: "POST",
-					url: "' . $scripturl . '?action=clubbings;sa=' . (empty($context['clubbing']['id']) ? 'add' : 'edit') . '",
+					url: "' . $scripturl . '?action=group_buys;sa=' . (empty($context['group_buy']['id']) ? 'add' : 'edit') . '",
 					data: msg,
 					success: function() {
 						window.location = smf_prepareScriptUrl(smf_scripturl) + \'topic=' . $context['current_topic'] . '.0\';
 					},
 					error: function() {
-						alert("' . JavaScriptEscape($txt['cb_is_error']) . '" + xhr.responseCode);
+						alert("' . JavaScriptEscape($txt['gb_is_error']) . '" + xhr.responseCode);
 					}
 				});
 			});
@@ -72,12 +58,7 @@ function template_profile()
 {
 	global $context, $scripturl, $txt;
 
-	echo '
-		<div class="cat_bar">
-			<h3 class="catbg">', $txt['cb_clubbings'], ' - ', $context['member']['name'], '</h3>
-		</div>';
-
-	if (!empty($context['items'])) {
+	if (! empty($context['items'])) {
 		echo '
 		<div class="pagesection">
 			<span>', $txt['pages'], ': ', $context['page_index'], '</span>
@@ -96,26 +77,26 @@ function template_profile()
 					</div>
 					<div class="list_posts">', $item['text'], '</div>';
 
-			if ($context['cb_can_manage']) {
+			if ($context['gb_can_manage']) {
 				echo '
 					<div class="list_posts">', $item['requisites'], '</div>';
 
-				if (!empty($context['clubbing_members'][$item['topic']]))
+				if (! empty($context['group_buys_members'][$item['topic']]))
 					echo '
-					<div class="list_posts">', implode(', ', $context['clubbing_members'][$item['topic']]), '</div>';
+					<div class="list_posts">', implode(', ', $context['group_buys_members'][$item['topic']]), '</div>';
 			}
 
 			echo '
 				</div>';
 
-			if ($context['cb_can_manage'])
+			if ($context['gb_can_manage'])
 				echo '
 				<div class="modal" id="modal_', $item['topic'], '" style="display:none">
 					<div class="modal-content">
-						<h3>' . $txt['cb_clubbing_adding_members'] . '</h3>
-						<form name="clubbing_form_', $item['topic'], '" method="post" action="javascript:void(null);">
+						<h3>' . $txt['gb_group_buy_adding_members'] . '</h3>
+						<form name="group_buy_form_', $item['topic'], '" method="post" action="javascript:void(null);">
 							<input type="hidden" name="topic" value="', $item['topic'], '" />
-							<input type="text" name="members" placeholder="' . $txt['cb_enter_members'] . '" required />
+							<input type="text" name="members" placeholder="' . $txt['gb_enter_members'] . '" required />
 							<div class="centertext">
 								<button type="submit" name="submit" class="button_submit">' . $txt['post'] . '</button>
 							</div>
@@ -123,15 +104,15 @@ function template_profile()
 					</div>
 				</div>';
 
-			if ($context['cb_can_manage'])
+			if ($context['gb_can_manage'])
 				echo '
 				<div class="floatright">
 					<ul class="reset smalltext quickbuttons">
 						<li class="approve_button">
-							<a href="#modal_', $item['topic'], '"><span>', $txt['cb_add_member'], '</span></a>
+							<a href="#modal_', $item['topic'], '"><span>', $txt['gb_add_member'], '</span></a>
 						</li>
 						<li class="remove_button">
-							<a href="', $scripturl, '?action=profile;area=clubbings;u=', $context['member']['id'], ';start=', $context['start'], ';', $context['session_var'], '=', $context['session_id'], ';del_item=', $item['topic'], '"><span>', $txt['remove'], '</span></a>
+							<a href="', $scripturl, '?action=profile;area=group_buys;u=', $context['member']['id'], ';start=', $context['start'], ';', $context['session_var'], '=', $context['session_id'], ';del_item=', $item['topic'], '"><span>', $txt['remove'], '</span></a>
 						</li>
 					</ul>
 				</div>';
@@ -149,25 +130,25 @@ function template_profile()
 		</div>';
 	} else {
 		echo '
-		<div class="information">', $txt['cb_no_items'], '</div>';
+		<div class="information">', $txt['gb_no_items'], '</div>';
 	}
 
-	if ($context['cb_can_manage']) {
+	if ($context['gb_can_manage']) {
 		$context['insert_after_template'] .= '
-		<script type="text/javascript">
+		<script>
 			jQuery(document).ready(function($) {
 				$(".approve_button a").attr("rel", "modal:open");
-				$("form[name^=clubbing_form]").on("submit", function(){
+				$("form[name^=group_buy_form]").on("submit", function(){
 					msg = $(this).serialize();
 					$.ajax({
 						type: "POST",
-						url: "' . $scripturl . '?action=profile;area=clubbings;u=' . $context['member']['id'] . '",
+						url: "' . $scripturl . '?action=profile;area=group_buys;u=' . $context['member']['id'] . '",
 						data: msg,
 						success: function() {
-							window.location = smf_prepareScriptUrl(smf_scripturl) + \'action=profile;area=clubbings;u=' . $context['member']['id'] . '\';
+							window.location = smf_prepareScriptUrl(smf_scripturl) + \'action=profile;area=group_buys;u=' . $context['member']['id'] . '\';
 						},
 						error: function() {
-							alert("' . JavaScriptEscape($txt['cb_is_error']) . '" + xhr.responseCode);
+							alert("' . JavaScriptEscape($txt['gb_is_error']) . '" + xhr.responseCode);
 						}
 					});
 				});

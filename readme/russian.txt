@@ -1,4 +1,0 @@
-[center][color=red][size=16pt][b]Clubbing[/b][/size][/color]
-[color=blue][b][size=10pt]By Bugo[/size][/b][/color]
-
-[color=green]Возможность создавать складчины в темах форума.[/color][/center][hr]Модификация распространяется по лицензии [url=https://github.com/dragomano/Clubbing/blob/master/LICENSE]MIT[/url]
