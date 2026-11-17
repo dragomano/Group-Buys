@@ -3,7 +3,7 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>Bugo:GroupBuys</id>
 	<name>Group Buys</name>
-	<version>0.5</version>
+	<version>1.0</version>
 	<type>modification</type>
 
 	<install for="2.1.*">

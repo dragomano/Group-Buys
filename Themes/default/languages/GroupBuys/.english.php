@@ -27,8 +27,17 @@ $txt['gb_add_member']               = 'Add member';
 $txt['gb_group_buy_adding_members'] = 'Adding members';
 $txt['gb_enter_members']            = 'Enter a comma-separated list of member names';
 
-$txt['permissiongroup_group_buys']       = $txt['permissiongroup_simple_group_buys'] = $txt['gb_group_buys'];
-$txt['permissionname_make_group_buys']   = 'Create group buys';
-$txt['permissionhelp_make_group_buys']   = 'Users with this permission can create group buys.';
-$txt['cannot_make_group_buys']           = 'Sorry, but you cannot create group buys.';
-$txt['group_perms_name_make_group_buys'] = $txt['permissionname_make_group_buys'];
+$txt['permissiongroup_group_buys']        = $txt['permissiongroup_simple_group_buys'] = $txt['gb_group_buys'];
+$txt['permissionname_make_group_buys']    = $txt['group_perms_name_make_group_buys'] = 'Create group buys';
+$txt['permissionhelp_make_group_buys']    = 'Users with this permission can create group buys.';
+$txt['groups_make_group_buys']            = 'Who can create group buys';
+$txt['cannot_make_group_buys']            = 'Sorry, but you cannot create group buys.';
+$txt['permissionname_view_group_buys']    = $txt['group_perms_name_view_group_buys'] = 'View group buys';
+$txt['permissionhelp_view_group_buys']    = 'Users with this permission can see group buy participants and join them.';
+$txt['groups_view_group_buys']            = 'Who can view group buys and join them';
+$txt['cannot_view_group_buys']            = 'Sorry, but you cannot view group buys.';
+
+$txt['gb_settings']        = 'Group buys';
+$txt['gb_settings_desc']   = 'Group buys settings.';
+$txt['gb_currencies']      = 'Currencies';
+$txt['gb_currencies_desc'] = 'Currencies available for group buys, one per line (a three-letter code, e.g. RUB, USD, EUR, UAH). To remove a currency just delete its line.';

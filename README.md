@@ -1,15 +1,14 @@
-# Clubbing
-![SMF 2.0](https://img.shields.io/badge/SMF-2.0-75879b.svg?style=flat)
-![License](https://img.shields.io/github/license/dragomano/clubbing)
+# GroupBuys
 
-* **Author:** Bugo [dragomano.ru](https://dragomano.ru/mods/clubbing)
-* **License:** [MIT](https://github.com/dragomano/Clubbing/blob/master/LICENSE)
-* **Compatible with:** SMF 2.0.*
-* **Hooks only:** Yes
-* **Languages:** English, Russian
+[![SMF 2.1](https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat)](https://github.com/SimpleMachines/SMF2.1)
+![License](https://img.shields.io/github/license/dragomano/group-buys)
+![Hooks only: Yes](https://img.shields.io/badge/Hooks%20only-YES-blue)
+
+- **Tested on:** PHP 8.3.36
+- **Languages:** English, Russian
 
 ## Description
-The ability to create clubbings within topics.
+Adds the ability to create group buys within topics.
 
 ## Описание
 Возможность создавать складчины в темах форума.

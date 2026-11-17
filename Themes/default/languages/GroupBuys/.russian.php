@@ -27,8 +27,17 @@ $txt['gb_add_member']               = 'Добавить участника';
 $txt['gb_group_buy_adding_members'] = 'Добавление участников';
 $txt['gb_enter_members']            = 'Укажите имена пользователей (через запятую)';
 
-$txt['permissiongroup_group_buys']       = $txt['permissiongroup_simple_group_buys'] = $txt['gb_group_buys'];
-$txt['permissionname_make_group_buys']   = 'Создание складчин';
-$txt['permissionhelp_make_group_buys']   = 'Возможность создавать складчины.';
-$txt['cannot_make_group_buys']           = 'Извините, но вы не можете создавать складчины.';
-$txt['group_perms_name_make_group_buys'] = $txt['permissionname_make_group_buys'];
+$txt['permissiongroup_group_buys']        = $txt['permissiongroup_simple_group_buys'] = $txt['gb_group_buys'];
+$txt['permissionname_make_group_buys']    = $txt['group_perms_name_make_group_buys'] = 'Создание складчин';
+$txt['permissionhelp_make_group_buys']    = 'Возможность создавать складчины.';
+$txt['groups_make_group_buys']            = 'Кто может создавать складчины';
+$txt['cannot_make_group_buys']            = 'Извините, но вы не можете создавать складчины.';
+$txt['permissionname_view_group_buys']    = $txt['group_perms_name_view_group_buys'] = 'Просмотр складчин';
+$txt['permissionhelp_view_group_buys']    = 'Возможность видеть участников складчины и присоединяться к ним.';
+$txt['groups_view_group_buys']            = 'Кто может просматривать складчины и участвовать в них';
+$txt['cannot_view_group_buys']            = 'Извините, но вы не можете просматривать складчины.';
+
+$txt['gb_settings']        = 'Складчины';
+$txt['gb_settings_desc']   = 'Настройки складчин.';
+$txt['gb_currencies']      = 'Валюты';
+$txt['gb_currencies_desc'] = 'Список валют для складчин, по одной на строку (код из трёх букв, например RUB, USD, EUR, UAH). Чтобы убрать валюту, просто удалите строку.';

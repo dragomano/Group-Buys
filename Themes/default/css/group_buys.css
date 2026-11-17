@@ -1,39 +1,140 @@
+/* Native popover windows (Popover API), no modal plugins required.
+   margin: auto re-centers the window: SMF's global reset (* { margin: 0 }) overrides the UA style. */
+.modal {
+	border: 0;
+	padding: 1em;
+	margin: auto;
+	background: transparent;
+	width: min(92vw, 560px);
+	max-height: none;
+	overflow: visible;
+}
+.modal::backdrop {
+	background: rgba(0, 0, 0, .6);
+}
+/* Colours are taken from the forum theme, not from the OS/browser preference:
+   the window inherits the theme's own text colour and uses the theme's own field and
+   border styling. A theme can override any value through the custom properties below. */
+.modal {
+	background: transparent;
+	color: inherit;
+}
 .modal-content {
-	padding-right: 2em;
+	position: relative;
+	padding: 1.5em 2em 1.5em 1.5em;
+	/* Prefer the theme's own design tokens when it exposes them (Umbra & similar),
+	   then the mod's overrides, and only then the plain SMF look. */
+	background: var(--gb-modal-bg, var(--panel, var(--pop-bg, #fdfdfd)));
+	color: var(--gb-modal-fg, var(--text, inherit));
+	border: 1px solid var(--gb-modal-border, var(--border, #ddd));
+	border-radius: var(--gb-radius, 6px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, .3);
+}
+.modal-content h3 {
+	margin-top: 0;
+	color: inherit;
+}
+.modal-content .modal_close {
+	position: absolute;
+	top: .4em;
+	right: .4em;
+	padding: .3em;
+	border: 0;
+	border-radius: 4px;
+	background: none;
+	font-size: 1.1em;
+	line-height: 1;
+	cursor: pointer;
+	color: var(--gb-close-color, #c00);
+	font-weight: bold;
+}
+.modal-content .modal_close:hover {
+	color: var(--gb-close-color-hover, #900);
+	background: var(--gb-close-bg-hover, #fdd);
 }
 .modal-content label {
 	font-weight: bold;
+	color: inherit;
 }
-.modal-content input[type="text"], .modal-content textarea {
+/* Fields keep SMF's own form styling (height, padding); only widths are adjusted here.
+   Do not add vertical padding to selects: SMF gives them a fixed height (2em),
+   and the padding would clip the selected option's text. */
+.modal-content input[type="text"],
+.modal-content input[type="number"],
+.modal-content textarea,
+.modal-content select {
+	background: var(--gb-field-bg, var(--inset, #fff));
+	color: var(--gb-field-fg, var(--text, #222));
+	border-color: var(--gb-field-border, var(--border, #bbb));
+}
+.modal-content input[type="text"] {
 	width: 100%;
-	padding: 1em;
 	margin-bottom: 10px;
 }
 .modal-content input[type="number"] {
-	width: 70%;
-	padding: 1em;
-	margin-bottom: 12px;
+	width: auto;
+	margin-bottom: 0;
 }
 .modal-content select {
-	width: 20%;
-	padding: .8em;
+	width: auto;
+	margin-bottom: 0;
+}
+/* The price field takes all the remaining width of the row, the currency select keeps its own */
+.modal-content .price_row {
+	display: flex;
+	gap: 10px;
 	margin-bottom: 12px;
 }
-.modal-content button {
-	padding: 4px;
-	border-radius: 5px;
-	font-size: 1.1em;
+.modal-content .price_row input[type="number"] {
+	flex: 1 1 auto;
 }
-a.button_submit {
+.modal-content .price_row select {
+	flex: 0 0 120px;
+}
+.modal-content textarea {
+	width: 100%;
+	padding: .5em;
+	margin-bottom: 10px;
+}
+/* SMF's .information is meant to sit under a .cat_bar header: no top border,
+   bottom corners only. Here it is a standalone block, so restore all corners
+   and give it some air above, away from the message text. */
+.group_buy_list.information {
+	border-top: 1px solid var(--gb-modal-border, #ddd);
+	border-radius: 7px;
+	margin-top: 1em;
+}
+/* Participants of a group buy in the profile: name link + remove cross */
+.gb_members {
+	display: flex;
+	flex-wrap: wrap;
+	gap: .4em 1.4em;
+}
+.gb_member a {
 	text-decoration: none;
-	padding: 0.2em;
 }
-ul.columns { margin: 0; padding: 0; list-style-type: none; word-spacing: -1ex; }
-.columns li { display: -moz-inline-stack; display: inline-block; display: inline; }
-.columns a, .columns b { display: inline; word-spacing: normal; display: inline-block; filter: alpha(opacity=100); }
-.columns a, .columns b, x:-moz-any-link { display:block; }
-.columns a, .columns b, x:-moz-any-link, x:default { display: inline; }
-.columns li, .columns a, .columns b { vertical-align: top; }
-.columns li { margin: 0 10% 0.4em 0; margin: 0; width: 10%; width: auto; }
-.columns a, .columns b { margin: 0 10% 0.4em 0; width: 40%; }
-.columns ul { width: 100%; }
+.gb_member a.gb_member_remove {
+	margin-left: .3em;
+	color: #c00;
+	font-weight: bold;
+}
+.gb_member a.gb_member_remove:hover {
+	color: #900;
+}
+/* Buttons inside the windows use the standard SMF .button class */
+/* Participants list: a simple two-column grid, each item is "name (join date)" */
+.group_buy_list ul.columns {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: .3em 1.5em;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+.group_buy_list ul.columns li {
+	margin: 0;
+	white-space: nowrap;
+}
+.group_buy_list .gb_join_date {
+	white-space: nowrap;
+}
